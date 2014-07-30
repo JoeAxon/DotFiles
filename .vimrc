@@ -1,3 +1,5 @@
+let g:PHP_vintage_case_default_indent=1
+
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
@@ -26,6 +28,9 @@ set incsearch
 set showmatch
 set hlsearch
 nnoremap <leader><space> :noh<cr>
+
+set cindent
+set cinoptions=l1
 
 colors slate
 
@@ -79,6 +84,8 @@ nmap <F9> mz:execute TabToggle()<CR>'z
 "------------------------------------------------------------
 set statusline=[%t]
 set statusline+=%{fugitive#statusline()}
+set statusline+=%=
+set statusline+=[%l,%c]/%L
 set laststatus=2
 
 "------------------------------------------------------------

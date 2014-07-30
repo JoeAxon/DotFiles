@@ -6,8 +6,9 @@
 alias gitfresh="git checkout master; git pull; git push origin master"
 alias gitclean="git branch --merged | grep -v \"\*\" | xargs -n 1 git branch -d"
 alias gitlog="git log --oneline --graph --color"
+alias gitfixup="git add -u;git commit --amend -C HEAD"
 
-source ~/.work_aliases
+#source ~/.work_aliases
 
 # If not running interactively, don't do anything
 case $- in
