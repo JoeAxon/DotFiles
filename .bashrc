@@ -3,7 +3,7 @@
 # for examples
 
 # Aliases
-alias gitfresh="git checkout master; git pull; git push origin master"
+alias gitfresh="git checkout master; git pull"
 alias gitclean="git branch --merged | grep -v \"\*\" | xargs -n 1 git branch -d"
 alias gitlog="git log --oneline --graph --color"
 alias gitfixup="git add -u;git commit --amend -C HEAD"
