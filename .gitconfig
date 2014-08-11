@@ -1,0 +1,5 @@
+[user]
+	email = joe.axon@victoriaplumb.com
+	name = Joe Axon
+[push]
+	default = current
