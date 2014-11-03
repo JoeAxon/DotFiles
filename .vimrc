@@ -79,6 +79,16 @@ function TabToggle()
 endfunction
 nmap <F9> mz:execute TabToggle()<CR>'z
 
+
+function GrepUnderCursor()
+	normal yiw
+	silent! execute 'grep "' . @" . '" -rl .'
+	redraw!
+	copen
+	let w:quickfix_title = 'Search results for: ' . @"
+	let @/ = @"
+endfunction
+
 "------------------------------------------------------------
 " Custom Status Line
 "------------------------------------------------------------
@@ -97,6 +107,11 @@ nmap <F4> :Gcommit<CR>
 " PHP Syntax Checker
 "------------------------------------------------------------
 nmap <F5> :!php -l %<CR>
+
+"------------------------------------------------------------
+" Grep Under Cursor
+"------------------------------------------------------------
+nmap <F7> :execute GrepUnderCursor()<CR>
 
 "------------------------------------------------------------
 " Tagbar Toggle

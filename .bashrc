@@ -8,6 +8,28 @@ alias gitclean="git branch --merged | grep -v \"\*\" | xargs -n 1 git branch -d"
 alias gitlog="git log --oneline --graph --color"
 alias gitfixup="git add -u;git commit --amend -C HEAD"
 
+
+create_session()
+{
+	session_name=$1
+	site_root=$2
+
+	tmux new-session -d -s $session_name
+	tmux send -t $session_name "SITE_ROOT=$site_root" ENTER
+	tmux send -t $session_name "alias cr='cd \$SITE_ROOT'" ENTER
+
+	tmux send -t $session_name 'cr' ENTER
+	tmux send -t $session_name clear ENTER
+
+	tmux attach -t $session_name
+}
+
+vplumb()
+{
+	tmux attach -t VPlumb || create_session VPlumb /var/www/sites/victoria-plumb
+}
+
+
 #source ~/.work_aliases
 
 # If not running interactively, don't do anything
