@@ -49,8 +49,6 @@ shopt -s checkwinsize
 
 
 
-# Setup Prompt
-PS1='\[\033[33m\][\W] \[\033[47m\]\[\033[31m\]$(__git_ps1 "(%s)")\[\033[0m\]\n\$ '
 unset color_prompt force_color_prompt
 
 
@@ -58,13 +56,6 @@ unset color_prompt force_color_prompt
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
 
 # enable color support for
 if [ -x /usr/bin/dircolors ]; then
@@ -95,3 +86,28 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Setup Prompt
+PS1='\[\033[33m\][\W] \[\033[47m\]\[\033[31m\]$(__git_ps1 "(%s)")\[\033[0m\]\n\$ '
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+export GOPATH=$HOME/go
+
+export PATH=$PATH:$GOPATH/bin:$(composer global config bin-dir --absolute)
+
+cleanupbranches()
+{
+    git branch | grep -v '\*\|master' | while read -r line; do
+        echo $line
+        read answer
+        if [ $answer == "d" ]
+        then
+            git branch -D $line
+        fi
+    done
+}

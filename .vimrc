@@ -14,7 +14,7 @@ set nocompatible
 set modelines=0
 
 set mouse=a
-set ttymouse=sgr
+"set ttymouse=sgr
 
 set encoding=utf-8
 set ruler
@@ -83,11 +83,20 @@ nmap <F9> mz:execute TabToggle()<CR>'z
 
 function GrepUnderCursor()
 	normal yiw
-	silent! execute 'grep "' . @" . '" -rl .'
+	execute 'grep "' . @" . '" -rl .'
 	redraw!
 	copen
 	let w:quickfix_title = 'Search results for: ' . @"
 	let @/ = @"
+endfunction
+
+function DocBlock()
+    normal mf0f(yi)ko
+    execute 'normal map0i* @param '
+    execute 's/, */\r* @param /g'
+    normal o/
+    normal `ako/**
+    normal =`f`f
 endfunction
 
 "------------------------------------------------------------
